@@ -8,14 +8,18 @@ export default function MainNav() {
     <>
       <Navbar className="fixed-top navbar-dark bg-dark" expand="lg">
         <Container>
-          <Navbar.Brand>Parth Ranjitbhai Patel</Navbar.Brand>
+          <Navbar.Brand>
+            <Link href="/" style={{ textDecoration: "none", color: "inherit" }}>
+              Parth Ranjitbhai Patel
+            </Link>
+          </Navbar.Brand>
 
           <Navbar.Toggle aria-controls="main-navbar-nav" />
           <Navbar.Collapse id="main-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link as={Link} href="/">
+              {/* <Nav.Link as={Link} href="/">
                 Books
-              </Nav.Link>
+              </Nav.Link> */}
               <Nav.Link as={Link} href="/about">
                 About
               </Nav.Link>
