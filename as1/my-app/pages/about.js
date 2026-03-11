@@ -36,7 +36,7 @@ export default function About({ book }) {
         Library API:
       </p>
 
-      <BookDetails book={book} />
+      <BookDetails book={book} showFavouriteBtn={false} />
     </div>
   );
 }

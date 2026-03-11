@@ -3,10 +3,14 @@ import useSWR from "swr";
 import BookDetails from "@/components/BookDetails";
 import Error from "next/error";
 import PageHeader from "@/components/PageHeader";
+// import { useAtom } from "jotai";
+// import { favouritesAtom } from "@/store";
 
 export default function WorkId() {
   const router = useRouter();
   const { workId } = router.query;
+
+  // const [favouritesList, setFavouritesList] = useAtom(favouritesAtom);
 
   const { data, error, isLoading } = useSWR(
     workId ? `https://openlibrary.org/works/${workId}.json` : null
@@ -23,7 +27,7 @@ export default function WorkId() {
   return (
     <>
       <PageHeader text={data.title} />
-      <BookDetails book={data} />
+      <BookDetails book={data} workId={workId} />
     </>
   );
 }

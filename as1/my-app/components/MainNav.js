@@ -23,6 +23,9 @@ export default function MainNav() {
               <Nav.Link as={Link} href="/about">
                 About
               </Nav.Link>
+              <Nav.Link as={Link} href="/favourites">
+                Favourites
+              </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

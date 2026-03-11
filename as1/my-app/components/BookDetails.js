@@ -1,12 +1,31 @@
 import Image from "next/image";
-import { Container, Row, Col } from "react-bootstrap";
+import { useAtom } from "jotai";
+import { favouritesAtom } from "@/store";
+import { useState } from "react";
+import { Container, Row, Col, Button } from "react-bootstrap";
 
-export default function BookDetails({ book }) {
+export default function BookDetails({ book, workId, showFavouriteBtn = true }) {
+  console.log("getting workId", workId);
+
+  const [favouritesList, setFavouritesList] = useAtom(favouritesAtom);
+  console.log("add favouritesList", favouritesList);
+
+  const [showAdded, setShowAdded] = useState(favouritesList.includes(workId));
+
+  function favouritesClicked() {
+    if (showAdded) {
+      setFavouritesList((current) => current.filter((fav) => fav != workId));
+      setShowAdded(false);
+    } else {
+      setFavouritesList((current) => [...current, workId]);
+      setShowAdded(true);
+    }
+  }
+
   return (
     <Container>
       <Row>
-        <Col lg="6">
-          {/* issue : https://nextjs.org/docs/messages/next-image-unconfigured-host */}
+        <Col lg="5">
           <Image
             src={
               book?.covers?.[0]
@@ -62,6 +81,19 @@ export default function BookDetails({ book }) {
                   <br />
                 </span>
               ))}
+            </>
+          )}
+
+          {/* do not show like if already fav */}
+          {showFavouriteBtn && (
+            <>
+              <br />
+              <Button
+                variant={showAdded ? "primary" : "outline-primary"}
+                onClick={favouritesClicked}
+              >
+                {showAdded ? "+ Favourite (added)" : "+ Favourite"}
+              </Button>
             </>
           )}
         </Col>
