@@ -29,4 +29,4 @@ jobs:
           start: npm start
           wait-on: "http://localhost:3000"
           wait-on-timeout: 60
-          working-directory: lab9
+          project: lab9
