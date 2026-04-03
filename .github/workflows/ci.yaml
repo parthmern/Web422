@@ -17,9 +17,11 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+        working-directory: lab9
 
       - name: Build app
         run: npm run build
+        working-directory: lab9
 
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
@@ -27,3 +29,4 @@ jobs:
           start: npm start
           wait-on: "http://localhost:3000"
           wait-on-timeout: 60
+          project: lab9

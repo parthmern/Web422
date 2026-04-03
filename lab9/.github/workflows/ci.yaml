@@ -10,12 +10,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Debug structure
-        run: |
-          pwd
-          ls -la
-          ls -la lab9/
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
