@@ -16,17 +16,18 @@ jobs:
           node-version: "18"
 
       - name: Install dependencies
-        run: npm install
-        working-directory: lab9
+        run: |
+          cd lab9
+          npm install
 
       - name: Build app
-        run: npm run build
-        working-directory: lab9
+        run: |
+          cd lab9
+          npm run build
 
       - name: Run Cypress Tests
-        uses: cypress-io/github-action@v6
-        with:
-          start: npm start
-          wait-on: "http://localhost:3000"
-          wait-on-timeout: 60
-          project: lab9
+        run: |
+          cd lab9
+          npm start &    # start server in background
+          npx wait-on http://localhost:3000
+          npx cypress run
