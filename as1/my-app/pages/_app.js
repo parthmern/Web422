@@ -6,13 +6,15 @@ import { SWRConfig } from "swr";
 import { getToken } from "@/lib/authenticate";
 
 const fetcher = async (url) => {
-  const token = getToken();
   const headers = {
     "content-type": "application/json",
   };
 
-  if (token) {
-    headers["Authorization"] = `JWT ${token}`;
+  if (url.startsWith(process.env.NEXT_PUBLIC_API_URL)) {
+    const token = getToken();
+    if (token) {
+      headers["Authorization"] = `JWT ${token}`;
+    }
   }
 
   const response = await fetch(url, { headers });

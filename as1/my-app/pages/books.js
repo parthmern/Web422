@@ -17,6 +17,7 @@ import { Container, Pagination, Table } from "react-bootstrap";
 import PageHeader from "@/components/PageHeader";
 
 export default function Books() {
+  console.log("Books page rendered");
   const [page, setPage] = useState(1);
   const [pageData, setPageData] = useState([]);
 

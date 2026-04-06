@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const dotenv = require("dotenv");
+const jwt = require("jsonwebtoken");
 dotenv.config();
 const userService = require("./user-service.js");
 
@@ -29,7 +30,12 @@ app.post("/api/user/login", (req, res) => {
   userService
     .checkUser(req.body)
     .then((user) => {
-      res.json({ message: "login successful" });
+      const payload = {
+        _id: user._id,
+        userName: user.userName,
+      };
+      const token = jwt.sign(payload, process.env.JWT_SECRET);
+      res.json({ message: "login successful", token: token });
     })
     .catch((msg) => {
       res.status(422).json({ message: msg });

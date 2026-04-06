@@ -8,6 +8,7 @@ function setToken(token) {
 // Get token from localStorage
 export function getToken() {
   try {
+    console.log("getToken ", localStorage.getItem("access_token"));
     return localStorage.getItem("access_token");
   } catch (err) {
     return null;
@@ -32,6 +33,8 @@ export function readToken() {
 // Check if user is authenticated
 export function isAuthenticated() {
   const token = readToken();
+  console.log;
+  "isAuthenticated - token:", token;
   return token ? true : false;
 }
 
