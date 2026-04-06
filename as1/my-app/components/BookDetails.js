@@ -3,6 +3,7 @@ import { useAtom } from "jotai";
 import { favouritesAtom } from "@/store";
 import { useState } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
+import { addToFavourites, removeFromFavourites } from "@/lib/userData";
 
 export default function BookDetails({ book, workId, showFavouriteBtn = true }) {
   console.log("getting workId", workId);
@@ -12,11 +13,13 @@ export default function BookDetails({ book, workId, showFavouriteBtn = true }) {
 
   const [showAdded, setShowAdded] = useState(favouritesList.includes(workId));
 
-  function favouritesClicked() {
+  async function favouritesClicked() {
     if (showAdded) {
+      await removeFromFavourites(workId);
       setFavouritesList((current) => current.filter((fav) => fav != workId));
       setShowAdded(false);
     } else {
+      await addToFavourites(workId);
       setFavouritesList((current) => [...current, workId]);
       setShowAdded(true);
     }
