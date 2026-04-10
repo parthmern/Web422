@@ -20,7 +20,7 @@ export default function MainNav() {
         <Container>
           <Navbar.Brand>
             <Link href="/" style={{ textDecoration: "none", color: "inherit" }}>
-              Parth Ranjitbhai Patel {token && <>- Welcome {token.userName}</>}
+              {token && <>- Welcome {token.userName}</>}
             </Link>
           </Navbar.Brand>
 

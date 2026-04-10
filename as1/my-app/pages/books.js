@@ -1,5 +1,5 @@
 /*********************************************************************************
- * WEB422 – Assignment 1
+ * WEB422 – Assignment 3
  *
  * I declare that this assignment is my own work in accordance with Seneca's
  * Academic Integrity Policy:

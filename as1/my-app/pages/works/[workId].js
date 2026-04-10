@@ -13,7 +13,7 @@ export default function WorkId() {
   // const [favouritesList, setFavouritesList] = useAtom(favouritesAtom);
 
   const { data, error, isLoading } = useSWR(
-    workId ? `https://openlibrary.org/works/${workId}.json` : null
+    workId ? `/api/works/${workId}` : null
   );
 
   if (isLoading) {

@@ -1,9 +1,11 @@
 import Image from "next/image";
 import { useAtom } from "jotai";
 import { favouritesAtom } from "@/store";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { addToFavourites, removeFromFavourites } from "@/lib/userData";
+
+const placeholderSrc = "https://placehold.co/400x600?text=Cover+Not+Available";
 
 export default function BookDetails({ book, workId, showFavouriteBtn = true }) {
   console.log("getting workId", workId);
@@ -12,6 +14,19 @@ export default function BookDetails({ book, workId, showFavouriteBtn = true }) {
   console.log("add favouritesList", favouritesList);
 
   const [showAdded, setShowAdded] = useState(favouritesList.includes(workId));
+  const [imageSrc, setImageSrc] = useState(placeholderSrc);
+
+  // need to handle this case lkike this
+  useEffect(() => {
+    if (book?.covers?.[0]) {
+      setImageSrc(
+        `https://covers.openlibrary.org/b/id/${book.covers[0]}-L.jpg`
+      );
+    } else {
+      console.log("no cover found hanndingg");
+      setImageSrc(placeholderSrc);
+    }
+  }, [book?.covers]);
 
   async function favouritesClicked() {
     if (showAdded) {
@@ -30,18 +45,15 @@ export default function BookDetails({ book, workId, showFavouriteBtn = true }) {
       <Row>
         <Col lg="5">
           <Image
-            src={
-              book?.covers?.[0]
-                ? `https://covers.openlibrary.org/b/id/${book.covers[0]}-L.jpg`
-                : "https://placehold.co/400x600?text=Cover+Not+Available"
-            }
+            src={imageSrc}
             alt="Cover img book loading"
             width={400}
             height={600}
-            onError={(event) => {
-              event.target.onerror = null;
-              event.target.src =
-                "https://placehold.co/400x600?text=Cover+Not+Available";
+            unoptimized
+            onError={() => {
+              if (imageSrc !== placeholderSrc) {
+                setImageSrc(placeholderSrc);
+              }
             }}
           />
           <br />
