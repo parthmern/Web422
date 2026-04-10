@@ -1,6 +1,5 @@
 import { getToken } from "./authenticate";
 
-// Get all favourites for the current user
 export async function getFavourites() {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/favourites`, {
@@ -20,7 +19,6 @@ export async function getFavourites() {
   }
 }
 
-// Add a book to favourites
 export async function addToFavourites(id) {
   try {
     const res = await fetch(
@@ -43,7 +41,6 @@ export async function addToFavourites(id) {
   }
 }
 
-// Remove a book from favourites
 export async function removeFromFavourites(id) {
   try {
     const res = await fetch(

@@ -6,9 +6,7 @@ import Image from "next/image";
 
 // https://getbootstrap.com/docs/5.3/components/card/#example this is used
 export default function BookCard({ workId }) {
-  const { data, error } = useSWR(
-    `https://openlibrary.org/works/${workId}.json`
-  );
+  const { data, error } = useSWR(workId ? `/api/works/${workId}` : null);
 
   console.log("data", data, error);
 

@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { isAuthenticated } from "@/lib/authenticate";
 
-const PUBLIC_PATHS = ["/login", "/register", "/_error", "/books"];
+const PUBLIC_PATHS = ["/login", "/register", "/_error", "/about"];
 
 function isPublicPath(path) {
   if (PUBLIC_PATHS.includes(path)) {

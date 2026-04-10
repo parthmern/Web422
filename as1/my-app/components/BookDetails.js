@@ -13,30 +13,36 @@ export default function BookDetails({ book, workId, showFavouriteBtn = true }) {
   const [favouritesList, setFavouritesList] = useAtom(favouritesAtom);
   console.log("add favouritesList", favouritesList);
 
-  const [showAdded, setShowAdded] = useState(favouritesList.includes(workId));
+  const [showAdded, setShowAdded] = useState(false);
   const [imageSrc, setImageSrc] = useState(placeholderSrc);
 
-  // need to handle this case lkike this
+  useEffect(() => {
+    setShowAdded(favouritesList.includes(workId));
+  }, [favouritesList, workId]);
+
   useEffect(() => {
     if (book?.covers?.[0]) {
       setImageSrc(
         `https://covers.openlibrary.org/b/id/${book.covers[0]}-L.jpg`
       );
     } else {
-      console.log("no cover found hanndingg");
       setImageSrc(placeholderSrc);
     }
   }, [book?.covers]);
 
   async function favouritesClicked() {
     if (showAdded) {
-      await removeFromFavourites(workId);
-      setFavouritesList((current) => current.filter((fav) => fav != workId));
-      setShowAdded(false);
+      const updatedList = await removeFromFavourites(workId);
+      if (updatedList.length) {
+        setFavouritesList(updatedList);
+        setShowAdded(updatedList.includes(workId));
+      }
     } else {
-      await addToFavourites(workId);
-      setFavouritesList((current) => [...current, workId]);
-      setShowAdded(true);
+      const updatedList = await addToFavourites(workId);
+      if (updatedList.length) {
+        setFavouritesList(updatedList);
+        setShowAdded(updatedList.includes(workId));
+      }
     }
   }
 
