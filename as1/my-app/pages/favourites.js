@@ -3,9 +3,19 @@ import BookCard from "@/components/BookCard";
 import { useAtom } from "jotai";
 import { favouritesAtom } from "@/store";
 import { Row, Col } from "react-bootstrap";
+import { useEffect } from "react";
+import { getFavourites } from "@/lib/userData";
 
 export default function Favourites() {
-  const [favouritesList] = useAtom(favouritesAtom);
+  const [favouritesList, setFavouritesList] = useAtom(favouritesAtom);
+
+  useEffect(() => {
+    const fetchFavourites = async () => {
+      const favourites = await getFavourites();
+      setFavouritesList(favourites);
+    };
+    fetchFavourites();
+  }, [setFavouritesList]);
 
   if (favouritesList.length === 0) {
     return (
