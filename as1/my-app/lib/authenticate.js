@@ -1,11 +1,10 @@
 import { jwtDecode } from "jwt-decode";
 
-// Store token in localStorage
+// localStorage
 function setToken(token) {
   localStorage.setItem("access_token", token);
 }
 
-// Get token from localStorage
 export function getToken() {
   try {
     console.log("getToken ", localStorage.getItem("access_token"));
@@ -15,12 +14,12 @@ export function getToken() {
   }
 }
 
-// Remove token from localStorage
+//================
+
 export function removeToken() {
   localStorage.removeItem("access_token");
 }
 
-// Read and decode JWT token
 export function readToken() {
   try {
     const token = getToken();
@@ -30,7 +29,6 @@ export function readToken() {
   }
 }
 
-// Check if user is authenticated
 export function isAuthenticated() {
   const token = readToken();
   console.log;
@@ -38,7 +36,6 @@ export function isAuthenticated() {
   return token ? true : false;
 }
 
-// Authenticate user with login credentials
 export async function authenticateUser(user, password) {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/login`, {
     method: "POST",
@@ -58,7 +55,6 @@ export async function authenticateUser(user, password) {
   }
 }
 
-// Register new user
 export async function registerUser(user, password, password2) {
   console.log(
     "process.env.NEXT_PUBLIC_API_URL:",
